@@ -1,0 +1,1735 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IBA Public School Sukkur | Computer Science Chapter 01</title>
+  
+  <!-- Designed Dynamic & Animated Browser Tab Icon -->
+  <link id="dynamicFavicon" rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%230284C7'/%3E%3Cstop offset='100%25' stop-color='%2338BDF8'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3Ccircle cx='16' cy='16' r='4' fill='%23FFFFFF'/%3E%3Ccircle cx='7' cy='16' r='2.5' fill='%23BAE6FD'/%3E%3Ccircle cx='25' cy='16' r='2.5' fill='%23BAE6FD'/%3E%3Ccircle cx='16' cy='7' r='2.5' fill='%23BAE6FD'/%3E%3Ccircle cx='16' cy='25' r='2.5' fill='%23BAE6FD'/%3E%3Cline x1='7' y1='16' x2='25' y2='16' stroke='%23FFFFFF' stroke-width='1.5' stroke-dasharray='2,2'/%3E%3Cline x1='16' y1='7' x2='16' y2='25' stroke='%23FFFFFF' stroke-width='1.5' stroke-dasharray='2,2'/%3E%3C/svg%3E" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#F0F9FF',
+              100: '#E0F2FE',
+              200: '#BAE6FD',
+              300: '#7DD3FC',
+              400: '#38BDF8',
+              500: '#0EA5E9',
+              600: '#0284C7',
+              700: '#0369A1',
+              800: '#075985',
+              900: '#0C4A6E',
+            },
+            slate: {
+              850: '#0f172a',
+              900: '#0f172a',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],
+            mono: ['JetBrains Mono', 'Menlo', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+    
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+
+    .lecture-mode #main-container {
+      max-width: 100% !important;
+      padding-left: 2.5rem !important;
+      padding-right: 2.5rem !important;
+    }
+    
+    .lecture-mode header {
+      padding-top: 0.5rem !important;
+      padding-bottom: 0.5rem !important;
+    }
+
+    .lecture-mode .lecture-hide {
+      display: none !important;
+    }
+
+    .pulse-glow {
+      animation: pulse-border 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+
+    @keyframes pulse-border {
+      0%, 100% {
+        box-shadow: 0 0 0 0 rgba(2, 132, 199, 0.4);
+      }
+      50% {
+        box-shadow: 0 0 0 8px rgba(2, 132, 199, 0);
+      }
+    }
+
+    .line-online { stroke: #38BDF8; stroke-dasharray: 6; animation: dash 1.8s linear infinite; }
+    .line-offline { stroke: #FDA4AF; stroke-dasharray: 4; opacity: 0.4; }
+
+    @keyframes dash {
+      to {
+        stroke-dashoffset: -24;
+      }
+    }
+
+    /* Custom Scrollbars */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #F0F9FF;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #BAE6FD;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #7DD3FC;
+    }
+  </style>
+</head>
+
+<body class="bg-brand-50 text-slate-900 antialiased selection:bg-brand-200 selection:text-brand-900 min-h-screen flex flex-col">
+
+  <!-- Sticky Top Navigation Bar -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 transition-all duration-200 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 sm:h-20">
+        
+        <!-- Left: Branding & Institution -->
+        <div class="flex items-center space-x-3.5">
+          <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-gradient-to-tr from-brand-700 via-brand-600 to-brand-400 flex items-center justify-center text-white shadow-md shadow-brand-500/25">
+            <i data-lucide="network" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-bold uppercase tracking-wider text-brand-700 bg-brand-100/80 px-2.5 py-0.5 rounded-full border border-brand-200">IBA Public School, Sukkur</span>
+              <span class="hidden md:inline text-xs text-slate-400 font-medium">| CS Chapter 01</span>
+            </div>
+            <h1 class="text-sm sm:text-base font-extrabold text-slate-900 tracking-tight flex items-center gap-1.5 mt-0.5">
+              Computer Networks & Cloud Computing
+              <span class="text-xs font-semibold text-brand-600 hidden sm:inline">• Sir Abdul Razak</span>
+            </h1>
+          </div>
+        </div>
+
+        <!-- Center: Search Filter Bar -->
+        <div class="hidden lg:flex items-center relative w-72 xl:w-88">
+          <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3.5"></i>
+          <input 
+            type="text" 
+            id="searchTopics" 
+            placeholder="Search topologies, test metrics, cloud..." 
+            class="w-full bg-slate-50 border border-slate-200 rounded-full pl-10 pr-4 py-2 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:bg-white transition"
+            oninput="handleLiveSearch(this.value)"
+          />
+        </div>
+
+        <!-- Right: Actions & Smartboard Toggle -->
+        <div class="flex items-center space-x-2 sm:space-x-3">
+          <button 
+            id="lectureToggleBtn" 
+            onclick="toggleLectureMode()" 
+            class="flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold text-brand-700 bg-brand-100 hover:bg-brand-200 rounded-xl transition border border-brand-200 shadow-sm"
+            title="Optimizes display margins and controls for Interactive Classroom Smartboards"
+          >
+            <i data-lucide="presentation" class="w-4 h-4"></i>
+            <span class="hidden sm:inline">Smartboard Mode</span>
+          </button>
+          
+          <a href="#assessment-section" class="px-3.5 py-2 text-xs font-bold text-white bg-brand-600 hover:bg-brand-700 rounded-xl transition shadow-md shadow-brand-600/20 flex items-center gap-1.5">
+            <i data-lucide="check-circle-2" class="w-4 h-4"></i>
+            <span>Module Quiz</span>
+          </a>
+        </div>
+
+      </div>
+
+      <!-- Secondary Quick-Anchor Navigation Bar -->
+      <div class="flex space-x-1 sm:space-x-3 border-t border-slate-100 py-2.5 overflow-x-auto text-xs font-semibold text-slate-600 no-scrollbar">
+        <a href="#topology-section" class="px-3 py-1 rounded-lg hover:bg-brand-50 hover:text-brand-600 whitespace-nowrap transition">1.5.3 Network Topologies</a>
+        <a href="#testing-dashboard-section" class="px-3 py-1 rounded-lg hover:bg-brand-50 hover:text-brand-600 whitespace-nowrap transition">1.5.4 Scalability & Reliability</a>
+        <a href="#cloud-fundamentals-section" class="px-3 py-1 rounded-lg hover:bg-brand-50 hover:text-brand-600 whitespace-nowrap transition">1.6.1 Cloud Fundamentals</a>
+        <a href="#cloud-services-section" class="px-3 py-1 rounded-lg hover:bg-brand-50 hover:text-brand-600 whitespace-nowrap transition">1.6.2 Service Models (IaaS/PaaS/SaaS)</a>
+        <a href="#cloud-deployment-section" class="px-3 py-1 rounded-lg hover:bg-brand-50 hover:text-brand-600 whitespace-nowrap transition">1.6.3 Deployment Models</a>
+        <a href="#assessment-section" class="px-3 py-1 rounded-lg hover:bg-brand-50 hover:text-brand-600 whitespace-nowrap transition">Review Quiz</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main id="main-container" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12 transition-all duration-300 flex-1">
+
+    <!-- Hero Curriculum Overview Banner -->
+    <section class="bg-gradient-to-r from-brand-700 via-brand-600 to-sky-500 rounded-3xl p-6 sm:p-10 text-white shadow-xl relative overflow-hidden">
+      <div class="absolute -right-12 -bottom-12 opacity-10 pointer-events-none">
+        <i data-lucide="cloud-lightning" class="w-96 h-96"></i>
+      </div>
+      <div class="relative z-10 max-w-3xl space-y-4">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-white/20 backdrop-blur-md border border-white/30 text-white">
+          <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> IBA Public School Sukkur • Computer Science Department
+        </div>
+        <h2 class="text-2xl sm:text-4xl font-black tracking-tight text-white leading-tight">
+          Computer Networks & Cloud Architecture
+        </h2>
+        <p class="text-brand-100 text-sm sm:text-base leading-relaxed">
+          Interactive instructional platform designed by <strong>Sir Abdul Razak</strong>. Engage with clickable network topology simulations, analyze enterprise scalability benchmarks, and master cloud service hierarchies through intuitive real-world models.
+        </p>
+        <div class="flex flex-wrap gap-2.5 pt-2 text-xs">
+          <div class="bg-white/10 backdrop-blur-md px-3.5 py-1.5 rounded-xl border border-white/20 flex items-center gap-2">
+            <i data-lucide="user-check" class="w-4 h-4 text-brand-200"></i>
+            <span><strong>Instructor:</strong> Sir Abdul Razak</span>
+          </div>
+          <div class="bg-white/10 backdrop-blur-md px-3.5 py-1.5 rounded-xl border border-white/20 flex items-center gap-2">
+            <i data-lucide="map-pin" class="w-4 h-4 text-brand-200"></i>
+            <span>Sukkur, Sindh</span>
+          </div>
+          <div class="bg-white/10 backdrop-blur-md px-3.5 py-1.5 rounded-xl border border-white/20 flex items-center gap-2">
+            <i data-lucide="layers" class="w-4 h-4 text-brand-200"></i>
+            <span>Topics 1.5.3, 1.5.4, 1.6.1, 1.6.2, 1.6.3</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 1.5.3: NETWORK TOPOLOGY SIMULATOR & PEDAGOGY -->
+    <section id="topology-section" class="searchable-section space-y-6">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between border-b border-slate-200 pb-4 gap-4">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="px-2.5 py-0.5 rounded-md text-xs font-bold bg-brand-100 text-brand-700 border border-brand-200">Sub-topic 1.5.3</span>
+            <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Physical & Logical Topologies</span>
+          </div>
+          <h3 class="text-2xl font-black text-slate-900 mt-1">Network Topologies: Interactive Sandbox & Comparative Analysis</h3>
+          <p class="text-sm text-slate-600 mt-0.5">Select a topology layout below. Click any workstation node or central backbone to simulate hardware faults and trace packet flow disruption.</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="resetSimulator()" class="px-3.5 py-2 text-xs font-bold text-slate-700 bg-white hover:bg-slate-50 border border-slate-300 rounded-xl flex items-center gap-1.5 shadow-sm transition">
+            <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+            Reset Simulation
+          </button>
+        </div>
+      </div>
+
+      <!-- Topology Interactive Switcher Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <!-- Left 7 Cols: Interactive SVG Sandbox -->
+        <div class="lg:col-span-7 bg-white p-5 sm:p-6 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+              <div class="flex flex-wrap gap-1.5" id="topologyTabButtons">
+                <button onclick="switchTopology('bus')" id="tab-bus" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-brand-600 text-white transition shadow-sm">Bus</button>
+                <button onclick="switchTopology('ring')" id="tab-ring" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-700 hover:bg-brand-50 hover:text-brand-600 transition">Ring</button>
+                <button onclick="switchTopology('star')" id="tab-star" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-700 hover:bg-brand-50 hover:text-brand-600 transition">Star</button>
+                <button onclick="switchTopology('tree')" id="tab-tree" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-700 hover:bg-brand-50 hover:text-brand-600 transition">Tree</button>
+                <button onclick="switchTopology('mesh')" id="tab-mesh" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-700 hover:bg-brand-50 hover:text-brand-600 transition">Mesh (Full & Partial)</button>
+                <button onclick="switchTopology('hybrid')" id="tab-hybrid" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-700 hover:bg-brand-50 hover:text-brand-600 transition">Hybrid</button>
+              </div>
+              <span id="simulatorStatusBadge" class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-200 flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span>Topology Healthy</span>
+              </span>
+            </div>
+
+            <!-- SVG Canvas Area -->
+            <div class="relative w-full h-80 sm:h-96 bg-brand-50/60 rounded-2xl border border-brand-200/80 flex items-center justify-center p-4 overflow-hidden" id="svgContainer">
+              <!-- SVG dynamically injected by JavaScript -->
+            </div>
+          </div>
+
+          <div class="mt-4 pt-4 border-t border-slate-100 flex flex-wrap items-center justify-between text-xs text-slate-500 gap-3">
+            <div class="flex items-center gap-4">
+              <div class="flex items-center gap-1.5">
+                <span class="w-3.5 h-3.5 rounded-full bg-brand-600 border-2 border-white shadow-sm"></span>
+                <span class="font-medium text-slate-700">Online Workstation</span>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <span class="w-3.5 h-3.5 rounded-full bg-red-500 border-2 border-white shadow-sm"></span>
+                <span class="font-medium text-slate-700">Simulated Fault (Click node/cable)</span>
+              </div>
+            </div>
+            <span class="font-mono text-xs text-brand-700 bg-brand-50 px-2 py-0.5 rounded border border-brand-200">Interactive Lab Canvas</span>
+          </div>
+        </div>
+
+        <!-- Right 5 Cols: Deep Pedagogy & Real-Life Analogy Card -->
+        <div class="lg:col-span-5 bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between" id="topologyDetailsCard">
+          <!-- Dynamic pedagogy injected here -->
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- SECTION 1.5.4: SCALABILITY & RELIABILITY TESTING DASHBOARD -->
+    <section id="testing-dashboard-section" class="searchable-section space-y-6">
+      <div class="border-b border-slate-200 pb-4">
+        <div class="flex items-center gap-2">
+          <span class="px-2.5 py-0.5 rounded-md text-xs font-bold bg-sky-100 text-sky-800 border border-sky-200">Sub-topic 1.5.4</span>
+          <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Engineering Evaluation</span>
+        </div>
+        <h3 class="text-2xl font-black text-slate-900 mt-1">Comparative Analysis: Testing Scalability vs. Reliability</h3>
+        <p class="text-sm text-slate-600 mt-0.5">Explore how enterprise campus networks at IBA Public School Sukkur are audited, stressed, and benchmarked prior to production rollout.</p>
+      </div>
+
+      <!-- Dashboard Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <!-- Pillar 1: Testing Scalability -->
+        <div class="bg-white rounded-3xl border border-slate-200 p-6 shadow-sm space-y-4">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+            <div class="flex items-center gap-3">
+              <div class="p-2.5 rounded-2xl bg-brand-100 text-brand-700">
+                <i data-lucide="trending-up" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <h4 class="text-lg font-bold text-slate-900">1. Testing Scalability</h4>
+                <p class="text-xs text-slate-500">Handling Growth & Throughput Demands</p>
+              </div>
+            </div>
+            <span class="text-xs font-bold text-brand-700 bg-brand-50 px-2.5 py-1 rounded-full border border-brand-200">Expansion Capacity</span>
+          </div>
+
+          <div class="space-y-3 text-xs">
+            <div class="p-3.5 rounded-2xl bg-slate-50 hover:bg-brand-50/50 transition border border-slate-200/80">
+              <div class="flex justify-between items-center font-bold text-slate-800">
+                <span class="flex items-center gap-1.5"><i data-lucide="activity" class="w-3.5 h-3.5 text-brand-600"></i> Load Testing</span>
+                <span class="text-brand-600 font-mono">60 Concurrent Req/sec</span>
+              </div>
+              <p class="text-slate-600 mt-1 leading-relaxed">Evaluating switch responsiveness when handling standard high classroom traffic (e.g., 60 students submitting term lab code simultaneously to the local portal).</p>
+            </div>
+
+            <div class="p-3.5 rounded-2xl bg-slate-50 hover:bg-brand-50/50 transition border border-slate-200/80">
+              <div class="flex justify-between items-center font-bold text-slate-800">
+                <span class="flex items-center gap-1.5"><i data-lucide="flame" class="w-3.5 h-3.5 text-amber-600"></i> Stress Testing</span>
+                <span class="text-amber-600 font-mono">Queue Saturation & Crash Recovery</span>
+              </div>
+              <p class="text-slate-600 mt-1 leading-relaxed">Pushing network queues beyond 100% capacity to observe packet discard policies, buffer overflows, and how fast switches recover after load subsides.</p>
+            </div>
+
+            <div class="p-3.5 rounded-2xl bg-slate-50 hover:bg-brand-50/50 transition border border-slate-200/80">
+              <div class="flex justify-between items-center font-bold text-slate-800">
+                <span class="flex items-center gap-1.5"><i data-lucide="laptop" class="w-3.5 h-3.5 text-brand-600"></i> Scalability Verification</span>
+                <span class="text-brand-600 font-mono">+50 Workstation Expansion</span>
+              </div>
+              <p class="text-slate-600 mt-1 leading-relaxed">Measuring round-trip latency and throughput degradation when connecting 50 new laptops into an existing Star or Tree distribution switch.</p>
+            </div>
+
+            <div class="p-3.5 rounded-2xl bg-slate-50 hover:bg-brand-50/50 transition border border-slate-200/80">
+              <div class="flex justify-between items-center font-bold text-slate-800">
+                <span class="flex items-center gap-1.5"><i data-lucide="bar-chart-3" class="w-3.5 h-3.5 text-emerald-600"></i> Benchmarking & Realistic Scenarios</span>
+                <span class="text-emerald-700 font-mono">IEEE 802.3 Ethernet Baselines</span>
+              </div>
+              <p class="text-slate-600 mt-1 leading-relaxed">Benchmarking actual lab transmission rates against standard theoretical Ethernet speeds during peak school examination days on the online grading portal.</p>
+            </div>
+
+            <div class="p-3.5 rounded-2xl bg-slate-50 hover:bg-brand-50/50 transition border border-slate-200/80">
+              <div class="flex justify-between items-center font-bold text-slate-800">
+                <span class="flex items-center gap-1.5"><i data-lucide="line-chart" class="w-3.5 h-3.5 text-brand-600"></i> Performance Monitoring</span>
+                <span class="text-brand-600 font-mono">RTT, Jitter & Delivery Ratio</span>
+              </div>
+              <p class="text-slate-600 mt-1 leading-relaxed">Continuous tracking of packet delivery ratio (PDR), round-trip time (RTT), jitter (packet delay variation), and total uplink bandwidth saturation.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pillar 2: Testing Reliability -->
+        <div class="bg-white rounded-3xl border border-slate-200 p-6 shadow-sm space-y-4">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+            <div class="flex items-center gap-3">
+              <div class="p-2.5 rounded-2xl bg-emerald-100 text-emerald-700">
+                <i data-lucide="shield-check" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <h4 class="text-lg font-bold text-slate-900">2. Testing Reliability</h4>
+                <p class="text-xs text-slate-500">Fault Resilience, Redundancy & Uptime</p>
+              </div>
+            </div>
+            <span class="text-xs font-bold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">Continuous Uptime</span>
+          </div>
+
+          <div class="space-y-3 text-xs">
+            <div class="p-3.5 rounded-2xl bg-slate-50 hover:bg-emerald-50/50 transition border border-slate-200/80">
+              <div class="flex justify-between items-center font-bold text-slate-800">
+                <span class="flex items-center gap-1.5"><i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-600"></i> Availability (Uptime SLA)</span>
+                <span class="text-emerald-700 font-mono font-bold">99.9% Target Uptime</span>
+              </div>
+              <p class="text-slate-600 mt-1 leading-relaxed">Percentage of time the network is fully operational during academic instructional hours, targeting less than 8.7 hours of total downtime annually.</p>
+            </div>
+
+            <div class="p-3.5 rounded-2xl bg-slate-50 hover:bg-emerald-50/50 transition border border-slate-200/80">
+              <div class="flex justify-between items-center font-bold text-slate-800">
+                <span class="flex items-center gap-1.5"><i data-lucide="git-branch" class="w-3.5 h-3.5 text-brand-600"></i> Redundancy & Fault Tolerance</span>
+                <span class="text-brand-600 font-mono">Dual Fiber Uplinks & STP</span>
+              </div>
+              <p class="text-slate-600 mt-1 leading-relaxed">Implementing backup cabling and secondary ISP gateways so traffic auto-routes (as in Mesh/Ring) instantly if a primary trench link is severed.</p>
+            </div>
+
+            <div class="p-3.5 rounded-2xl bg-slate-50 hover:bg-emerald-50/50 transition border border-slate-200/80">
+              <div class="flex justify-between items-center font-bold text-slate-800">
+                <span class="flex items-center gap-1.5"><i data-lucide="refresh-cw" class="w-3.5 h-3.5 text-purple-600"></i> Disaster Recovery</span>
+                <span class="text-purple-700 font-mono">Automated Config Snapshots</span>
+              </div>
+              <p class="text-slate-600 mt-1 leading-relaxed">Documented rapid recovery protocols to restore core switch VLAN tables and firewall ACLs within minutes of sudden power surges or hardware failure.</p>
+            </div>
+
+            <div class="p-3.5 rounded-2xl bg-slate-50 hover:bg-emerald-50/50 transition border border-slate-200/80">
+              <div class="flex justify-between items-center font-bold text-slate-800">
+                <span class="flex items-center gap-1.5"><i data-lucide="lock" class="w-3.5 h-3.5 text-slate-700"></i> Security Verification</span>
+                <span class="text-slate-700 font-mono">Port Security & Anti-Spoof</span>
+              </div>
+              <p class="text-slate-600 mt-1 leading-relaxed">Validating perimeter safeguards against unauthorized physical cable taps, rogue DHCP servers, and wireless SSID spoofing on the school network.</p>
+            </div>
+
+            <div class="p-3.5 rounded-2xl bg-slate-50 hover:bg-emerald-50/50 transition border border-slate-200/80">
+              <div class="flex justify-between items-center font-bold text-slate-800">
+                <span class="flex items-center gap-1.5"><i data-lucide="file-text" class="w-3.5 h-3.5 text-sky-600"></i> Continuous Telemetry & Audit Logs</span>
+                <span class="text-sky-700 font-mono">Real-Time Syslog & SNMP</span>
+              </div>
+              <p class="text-slate-600 mt-1 leading-relaxed">Generating live incident alerts, switch interface error counters, and automated maintenance audit reports for IT administration.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Live Interactive Campus Network Load Simulator -->
+      <div class="bg-gradient-to-r from-slate-900 via-slate-850 to-slate-900 text-white rounded-3xl p-6 sm:p-8 shadow-xl space-y-5">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <h4 class="text-base sm:text-lg font-bold text-brand-300 flex items-center gap-2">
+              <i data-lucide="gauge" class="w-5 h-5 text-brand-400"></i>
+              Interactive Campus Network Load & Stress Gauge
+            </h4>
+            <p class="text-xs text-slate-300 mt-0.5">Drag the slider to adjust simulated active student workstations across IBA Sukkur labs and view real-time latency and packet metrics.</p>
+          </div>
+          <div class="flex items-center gap-3 bg-slate-800/80 px-4 py-2 rounded-2xl border border-slate-700">
+            <span class="text-xs text-slate-400 uppercase font-bold tracking-wider">Active Students:</span>
+            <span id="studentCountDisplay" class="text-xl font-mono font-black text-brand-400">120</span>
+          </div>
+        </div>
+
+        <!-- Slider -->
+        <div class="space-y-1.5">
+          <input 
+            type="range" 
+            id="loadSlider" 
+            min="10" 
+            max="600" 
+            value="120" 
+            step="10" 
+            class="w-full h-2.5 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-brand-400"
+            oninput="updateMetricDashboard(this.value)"
+          />
+          <div class="flex justify-between text-[10px] font-mono text-slate-400">
+            <span>10 Students (Normal Lab)</span>
+            <span>250 Students (Multi-Class Exam)</span>
+            <span>600 Students (Severe Campus Peak)</span>
+          </div>
+        </div>
+
+        <!-- Metric Output Cards -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5 pt-2">
+          <div class="bg-slate-800/90 p-3.5 rounded-2xl border border-slate-700">
+            <span class="text-[10px] uppercase font-bold text-slate-400 tracking-wider block">Round-Trip Time (RTT)</span>
+            <div class="text-xl font-mono font-black text-white mt-1" id="metricRTT">17.6 ms</div>
+            <span class="text-[11px] font-medium text-emerald-400" id="metricRTTStatus">Optimal Speed</span>
+          </div>
+
+          <div class="bg-slate-800/90 p-3.5 rounded-2xl border border-slate-700">
+            <span class="text-[10px] uppercase font-bold text-slate-400 tracking-wider block">Packet Delivery Ratio</span>
+            <div class="text-xl font-mono font-black text-white mt-1" id="metricPDR">99.8%</div>
+            <span class="text-[11px] font-medium text-emerald-400" id="metricPDRStatus">Negligible Loss</span>
+          </div>
+
+          <div class="bg-slate-800/90 p-3.5 rounded-2xl border border-slate-700">
+            <span class="text-[10px] uppercase font-bold text-slate-400 tracking-wider block">Packet Jitter</span>
+            <div class="text-xl font-mono font-black text-white mt-1" id="metricJitter">2.6 ms</div>
+            <span class="text-[11px] font-medium text-emerald-400">Stable Stream</span>
+          </div>
+
+          <div class="bg-slate-800/90 p-3.5 rounded-2xl border border-slate-700">
+            <span class="text-[10px] uppercase font-bold text-slate-400 tracking-wider block">Calculated Availability</span>
+            <div class="text-xl font-mono font-black text-brand-300 mt-1" id="metricUptime">99.98%</div>
+            <span class="text-[11px] font-medium text-brand-400">Academic SLA Met</span>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- SECTION 1.6.1: CLOUD COMPUTING FUNDAMENTALS -->
+    <section id="cloud-fundamentals-section" class="searchable-section space-y-6">
+      <div class="border-b border-slate-200 pb-4">
+        <div class="flex items-center gap-2">
+          <span class="px-2.5 py-0.5 rounded-md text-xs font-bold bg-brand-100 text-brand-700 border border-brand-200">Sub-topic 1.6.1</span>
+          <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Cloud Paradigm</span>
+        </div>
+        <h3 class="text-2xl font-black text-slate-900 mt-1">Cloud Computing Fundamentals & Essential Characteristics</h3>
+        <p class="text-sm text-slate-600 mt-0.5">Demystifying the utility-based shift from legacy on-premises physical data centers to elastic cloud systems.</p>
+      </div>
+
+      <!-- Core Definition & Real-Life Analogy -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="lg:col-span-2 bg-white rounded-3xl p-6 sm:p-7 border border-slate-200 shadow-sm space-y-4 flex flex-col justify-between">
+          <div class="space-y-3">
+            <h4 class="text-lg font-bold text-slate-900 flex items-center gap-2.5">
+              <div class="p-2 rounded-xl bg-brand-100 text-brand-700">
+                <i data-lucide="cloud" class="w-5 h-5"></i>
+              </div>
+              What is Cloud Computing?
+            </h4>
+            <p class="text-slate-700 text-sm leading-relaxed">
+              Cloud computing is the <strong>on-demand access to virtualized computing resources</strong> (servers, databases, storage, software, and networking) delivered over the internet with a <strong>pay-as-you-go</strong> economic model. Rather than purchasing and housing expensive server hardware, institutions rent computing power dynamically from hyperscale providers.
+            </p>
+          </div>
+          
+          <div class="p-4 sm:p-5 rounded-2xl bg-brand-50 border border-brand-200">
+            <div class="flex items-start gap-3.5">
+              <div class="p-2.5 rounded-xl bg-brand-600 text-white mt-0.5 shadow-sm">
+                <i data-lucide="zap" class="w-4 h-4"></i>
+              </div>
+              <div>
+                <h5 class="text-xs font-bold uppercase text-brand-900 tracking-wider">Real-Life Pedagogical Analogy: The Municipal Electricity Grid</h5>
+                <p class="text-xs text-brand-800 mt-1 leading-relaxed">
+                  When you plug a smartboard or air conditioner into a wall socket at IBA Public School Sukkur, you do not construct a personal hydroelectric dam or diesel generator. You simply draw electric power from the public utility grid and pay strictly for the kilowatt-hours consumed. Cloud computing functions on this exact utility model.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CapEx vs OpEx Shift Card -->
+        <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-4 flex flex-col justify-between">
+          <div>
+            <h4 class="text-base font-bold text-slate-900 flex items-center gap-2">
+              <i data-lucide="coins" class="w-4 h-4 text-amber-500"></i>
+              CapEx to OpEx Paradigm Shift
+            </h4>
+            <div class="mt-3 space-y-3 text-xs">
+              <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+                <strong class="text-slate-900 block mb-0.5">Legacy CapEx (Capital Expenditure):</strong>
+                <span class="text-slate-600 leading-relaxed">Massive upfront investments in server racks, cooling, UPS generators, and long procurement cycles with idle capacity waste.</span>
+              </div>
+              <div class="p-3 rounded-xl bg-brand-50 border border-brand-200">
+                <strong class="text-brand-900 block mb-0.5">Modern OpEx (Operational Expenditure):</strong>
+                <span class="text-brand-800 leading-relaxed">Predictable, flexible monthly operational subscriptions. Spend only for what your active students and web services consume.</span>
+              </div>
+            </div>
+          </div>
+          <div class="text-[11px] text-slate-500 italic bg-slate-50 p-2.5 rounded-xl border border-slate-100">
+            Enables schools, startups, and universities to access enterprise-grade infrastructure instantly without millions in capital.
+          </div>
+        </div>
+      </div>
+
+      <!-- 5 Essential NIST Characteristics Grid -->
+      <div class="space-y-3">
+        <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
+          <i data-lucide="layers" class="w-4 h-4 text-brand-600"></i>
+          5 Essential Characteristics (NIST SP 800-145 Benchmark)
+        </h4>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+          
+          <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2 hover:border-brand-300 transition flex flex-col justify-between">
+            <div class="space-y-2">
+              <div class="w-8 h-8 rounded-xl bg-brand-100 text-brand-700 flex items-center justify-center font-bold text-xs">01</div>
+              <h5 class="text-xs font-bold text-slate-900">On-Demand Self-Service</h5>
+              <p class="text-[11px] text-slate-600 leading-relaxed">Users provision compute capabilities (server time, cloud storage) autonomously without human intervention from the provider.</p>
+            </div>
+          </div>
+
+          <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2 hover:border-brand-300 transition flex flex-col justify-between">
+            <div class="space-y-2">
+              <div class="w-8 h-8 rounded-xl bg-sky-100 text-sky-700 flex items-center justify-center font-bold text-xs">02</div>
+              <h5 class="text-xs font-bold text-slate-900">Broad Network Access</h5>
+              <p class="text-[11px] text-slate-600 leading-relaxed">Capabilities are accessible over standard networks via laptops, smartphones, tablets, and classroom workstations anywhere.</p>
+            </div>
+          </div>
+
+          <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2 hover:border-brand-300 transition flex flex-col justify-between">
+            <div class="space-y-2">
+              <div class="w-8 h-8 rounded-xl bg-brand-100 text-brand-700 flex items-center justify-center font-bold text-xs">03</div>
+              <h5 class="text-xs font-bold text-slate-900">Resource Pooling</h5>
+              <p class="text-[11px] text-slate-600 leading-relaxed">Provider compute assets are dynamically pooled in multi-tenant datacenters and reassigned on demand according to consumer traffic.</p>
+            </div>
+          </div>
+
+          <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2 hover:border-brand-300 transition flex flex-col justify-between">
+            <div class="space-y-2">
+              <div class="w-8 h-8 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold text-xs">04</div>
+              <h5 class="text-xs font-bold text-slate-900">Rapid Elasticity</h5>
+              <p class="text-[11px] text-slate-600 leading-relaxed">Resources scale out instantaneously during annual exam result checks and scale inward during semester breaks to eliminate waste.</p>
+            </div>
+          </div>
+
+          <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2 hover:border-brand-300 transition flex flex-col justify-between">
+            <div class="space-y-2">
+              <div class="w-8 h-8 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-xs">05</div>
+              <h5 class="text-xs font-bold text-slate-900">Measured Service</h5>
+              <p class="text-[11px] text-slate-600 leading-relaxed">Resource usage is monitored, controlled, and billed with complete transparency for bandwidth, storage volumes, and CPU hours.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 1.6.2: CLOUD SERVICE MODELS (INTERACTIVE PIZZA & TRANSPORT ANALOGY) -->
+    <section id="cloud-services-section" class="searchable-section space-y-6">
+      <div class="border-b border-slate-200 pb-4">
+        <div class="flex items-center gap-2">
+          <span class="px-2.5 py-0.5 rounded-md text-xs font-bold bg-brand-100 text-brand-700 border border-brand-200">Sub-topic 1.6.2</span>
+          <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Service Hierarchies</span>
+        </div>
+        <h3 class="text-2xl font-black text-slate-900 mt-1">Cloud Service Models: IaaS vs. PaaS vs. SaaS</h3>
+        <p class="text-sm text-slate-600 mt-0.5">Explore the shared responsibility stack and understand the control vs. convenience trade-off using interactive analogies.</p>
+      </div>
+
+      <!-- Analogy Tab Switcher Header -->
+      <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm space-y-6">
+        
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-5">
+          <div class="flex items-center gap-3">
+            <span class="text-xs font-bold text-slate-800 uppercase tracking-wider">Select Analogy Mode:</span>
+            <div class="inline-flex p-1 bg-slate-100 rounded-2xl border border-slate-200">
+              <button onclick="switchServiceAnalogy('pizza')" id="btn-analogy-pizza" class="px-3.5 py-1.5 text-xs font-bold rounded-xl bg-brand-600 text-white transition shadow-sm">🍕 Pizza As A Service</button>
+              <button onclick="switchServiceAnalogy('transport')" id="btn-analogy-transport" class="px-3.5 py-1.5 text-xs font-bold rounded-xl text-slate-600 hover:text-brand-600 transition">🚗 Transport Modes</button>
+            </div>
+          </div>
+          <span class="text-xs text-slate-400 font-medium">Click analogy button to switch pedagogical models</span>
+        </div>
+
+        <!-- 3-Tier Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          
+          <!-- IaaS Card -->
+          <div class="bg-slate-50/80 rounded-3xl p-5 sm:p-6 border border-slate-200 space-y-4 hover:border-brand-400 transition flex flex-col justify-between">
+            <div class="space-y-3.5">
+              <div class="flex items-center justify-between">
+                <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-brand-100 text-brand-800 border border-brand-200">Foundation Layer</span>
+                <span class="text-[11px] font-mono font-bold text-slate-500">Highest Control</span>
+              </div>
+              <h4 class="text-xl font-extrabold text-slate-900">IaaS</h4>
+              <p class="text-xs font-bold text-slate-600">Infrastructure as a Service</p>
+              
+              <div id="iaas-analogy-box" class="p-3.5 rounded-2xl bg-white border border-slate-200 text-xs text-slate-700 leading-relaxed shadow-sm">
+                <!-- Injected via JS -->
+              </div>
+
+              <div class="space-y-2.5 text-xs pt-1">
+                <div class="flex items-start gap-2 text-slate-800">
+                  <i data-lucide="check" class="w-4 h-4 text-emerald-600 mt-0.5 shrink-0"></i>
+                  <span><strong>You Manage:</strong> Operating System, Middleware, Runtimes, Data, Applications, Network Firewall rules.</span>
+                </div>
+                <div class="flex items-start gap-2 text-slate-600">
+                  <i data-lucide="server" class="w-4 h-4 text-brand-600 mt-0.5 shrink-0"></i>
+                  <span><strong>Vendor Manages:</strong> Physical Servers, Virtualization Hypervisors, Storage Disks, Datacenter HVAC & power.</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="pt-4 border-t border-slate-200">
+              <span class="text-[11px] font-bold text-slate-500 block mb-1.5">Industry Examples:</span>
+              <div class="flex flex-wrap gap-1.5">
+                <span class="text-[10px] bg-white px-2.5 py-1 rounded-lg border border-slate-200 font-semibold text-slate-700">AWS EC2</span>
+                <span class="text-[10px] bg-white px-2.5 py-1 rounded-lg border border-slate-200 font-semibold text-slate-700">Google Compute Engine</span>
+                <span class="text-[10px] bg-white px-2.5 py-1 rounded-lg border border-slate-200 font-semibold text-slate-700">Azure VMs</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- PaaS Card -->
+          <div class="bg-brand-50/60 rounded-3xl p-5 sm:p-6 border border-brand-200 space-y-4 hover:border-brand-400 transition flex flex-col justify-between">
+            <div class="space-y-3.5">
+              <div class="flex items-center justify-between">
+                <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-sky-200 text-sky-900 border border-sky-300">Developer Layer</span>
+                <span class="text-[11px] font-mono font-bold text-brand-700">Moderate Control</span>
+              </div>
+              <h4 class="text-xl font-extrabold text-slate-900">PaaS</h4>
+              <p class="text-xs font-bold text-slate-600">Platform as a Service</p>
+              
+              <div id="paas-analogy-box" class="p-3.5 rounded-2xl bg-white border border-brand-200 text-xs text-slate-700 leading-relaxed shadow-sm">
+                <!-- Injected via JS -->
+              </div>
+
+              <div class="space-y-2.5 text-xs pt-1">
+                <div class="flex items-start gap-2 text-slate-800">
+                  <i data-lucide="check" class="w-4 h-4 text-emerald-600 mt-0.5 shrink-0"></i>
+                  <span><strong>You Manage:</strong> Application Source Code, Database Schemas, Logic, API configurations.</span>
+                </div>
+                <div class="flex items-start gap-2 text-slate-600">
+                  <i data-lucide="server" class="w-4 h-4 text-brand-600 mt-0.5 shrink-0"></i>
+                  <span><strong>Vendor Manages:</strong> OS Security Patches, Runtime Engines (Node/Python/Java), Auto-scaling, Infrastructure.</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="pt-4 border-t border-brand-200">
+              <span class="text-[11px] font-bold text-slate-500 block mb-1.5">Industry Examples:</span>
+              <div class="flex flex-wrap gap-1.5">
+                <span class="text-[10px] bg-white px-2.5 py-1 rounded-lg border border-brand-200 font-semibold text-slate-700">Google App Engine</span>
+                <span class="text-[10px] bg-white px-2.5 py-1 rounded-lg border border-brand-200 font-semibold text-slate-700">Heroku</span>
+                <span class="text-[10px] bg-white px-2.5 py-1 rounded-lg border border-brand-200 font-semibold text-slate-700">AWS Elastic Beanstalk</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- SaaS Card -->
+          <div class="bg-slate-50/80 rounded-3xl p-5 sm:p-6 border border-slate-200 space-y-4 hover:border-brand-400 transition flex flex-col justify-between">
+            <div class="space-y-3.5">
+              <div class="flex items-center justify-between">
+                <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">Application Layer</span>
+                <span class="text-[11px] font-mono font-bold text-slate-500">Zero Maintenance</span>
+              </div>
+              <h4 class="text-xl font-extrabold text-slate-900">SaaS</h4>
+              <p class="text-xs font-bold text-slate-600">Software as a Service</p>
+              
+              <div id="saas-analogy-box" class="p-3.5 rounded-2xl bg-white border border-slate-200 text-xs text-slate-700 leading-relaxed shadow-sm">
+                <!-- Injected via JS -->
+              </div>
+
+              <div class="space-y-2.5 text-xs pt-1">
+                <div class="flex items-start gap-2 text-slate-800">
+                  <i data-lucide="check" class="w-4 h-4 text-emerald-600 mt-0.5 shrink-0"></i>
+                  <span><strong>You Manage:</strong> User Access Logins, Passwords, School Data Entry, Application Permissions.</span>
+                </div>
+                <div class="flex items-start gap-2 text-slate-600">
+                  <i data-lucide="server" class="w-4 h-4 text-brand-600 mt-0.5 shrink-0"></i>
+                  <span><strong>Vendor Manages:</strong> Entire Software Stack, Feature Updates, Security Patches, Hosting & High Availability.</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="pt-4 border-t border-slate-200">
+              <span class="text-[11px] font-bold text-slate-500 block mb-1.5">Industry Examples:</span>
+              <div class="flex flex-wrap gap-1.5">
+                <span class="text-[10px] bg-white px-2.5 py-1 rounded-lg border border-slate-200 font-semibold text-slate-700">Google Workspace / Drive</span>
+                <span class="text-[10px] bg-white px-2.5 py-1 rounded-lg border border-slate-200 font-semibold text-slate-700">Microsoft 365</span>
+                <span class="text-[10px] bg-white px-2.5 py-1 rounded-lg border border-slate-200 font-semibold text-slate-700">Google Classroom</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 1.6.3: CLOUD DEPLOYMENT MODELS -->
+    <section id="cloud-deployment-section" class="searchable-section space-y-6">
+      <div class="border-b border-slate-200 pb-4">
+        <div class="flex items-center gap-2">
+          <span class="px-2.5 py-0.5 rounded-md text-xs font-bold bg-brand-100 text-brand-700 border border-brand-200">Sub-topic 1.6.3</span>
+          <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Deployment Models</span>
+        </div>
+        <h3 class="text-2xl font-black text-slate-900 mt-1">Cloud Deployment Architectures</h3>
+        <p class="text-sm text-slate-600 mt-0.5">Categorizing cloud boundaries based on multi-tenancy, privacy governance, and physical data jurisdiction.</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        
+        <!-- Public Cloud -->
+        <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-3.5 hover:shadow-md transition flex flex-col justify-between">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <div class="p-2.5 rounded-2xl bg-sky-100 text-sky-700">
+                <i data-lucide="globe" class="w-5 h-5"></i>
+              </div>
+              <span class="text-[10px] font-bold uppercase tracking-wider text-sky-800 bg-sky-50 px-2.5 py-1 rounded-full border border-sky-200">Multi-Tenant</span>
+            </div>
+            <h4 class="text-base font-bold text-slate-900">Public Cloud</h4>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Infrastructure owned by commercial third-party providers (AWS, Azure) and delivered publicly across open internet lines to anyone subscribing.
+            </p>
+          </div>
+          <div class="p-3 rounded-2xl bg-sky-50/70 border border-sky-100 text-xs text-sky-900 leading-relaxed">
+            <strong>🚗 Real Analogy:</strong> A public city transit bus shared by multiple passengers commuting along public roads.
+          </div>
+        </div>
+
+        <!-- Private Cloud -->
+        <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-3.5 hover:shadow-md transition flex flex-col justify-between">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <div class="p-2.5 rounded-2xl bg-purple-100 text-purple-700">
+                <i data-lucide="lock" class="w-5 h-5"></i>
+              </div>
+              <span class="text-[10px] font-bold uppercase tracking-wider text-purple-800 bg-purple-50 px-2.5 py-1 rounded-full border border-purple-200">Dedicated</span>
+            </div>
+            <h4 class="text-base font-bold text-slate-900">Private Cloud</h4>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Cloud infrastructure operated solely for a single organization (e.g., Banking data centers, Defense intelligence intranet).
+            </p>
+          </div>
+          <div class="p-3 rounded-2xl bg-purple-50/70 border border-purple-100 text-xs text-purple-900 leading-relaxed">
+            <strong>🚗 Real Analogy:</strong> Your personal private family car parked securely inside your own garage with exclusive access.
+          </div>
+        </div>
+
+        <!-- Community Cloud -->
+        <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-3.5 hover:shadow-md transition flex flex-col justify-between">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <div class="p-2.5 rounded-2xl bg-amber-100 text-amber-700">
+                <i data-lucide="users" class="w-5 h-5"></i>
+              </div>
+              <span class="text-[10px] font-bold uppercase tracking-wider text-amber-800 bg-amber-50 px-2.5 py-1 rounded-full border border-amber-200">Shared Mission</span>
+            </div>
+            <h4 class="text-base font-bold text-slate-900">Community Cloud</h4>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Shared infrastructure mutually utilized by organizations with shared regulatory needs or scientific research domains (e.g., Sindh Universities Research Cloud).
+            </p>
+          </div>
+          <div class="p-3 rounded-2xl bg-amber-50/70 border border-amber-100 text-xs text-amber-900 leading-relaxed">
+            <strong>🚗 Real Analogy:</strong> A university student shuttle van pooled and shared cooperatively between regional campuses in Sukkur.
+          </div>
+        </div>
+
+        <!-- Hybrid Cloud -->
+        <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-3.5 hover:shadow-md transition flex flex-col justify-between">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <div class="p-2.5 rounded-2xl bg-emerald-100 text-emerald-700">
+                <i data-lucide="git-merge" class="w-5 h-5"></i>
+              </div>
+              <span class="text-[10px] font-bold uppercase tracking-wider text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">Integrated</span>
+            </div>
+            <h4 class="text-base font-bold text-slate-900">Hybrid Cloud</h4>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Combines private and public clouds connected through encrypted VPN tunnels (e.g., IBA Sukkur keeping student grades on-premises while hosting public event portals on AWS).
+            </p>
+          </div>
+          <div class="p-3 rounded-2xl bg-emerald-50/70 border border-emerald-100 text-xs text-emerald-900 leading-relaxed">
+            <strong>🚗 Real Analogy:</strong> Driving your private car to the city terminal, then boarding the express public train to travel across provinces.
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION: FORMATIVE ASSESSMENT MODULE -->
+    <section id="assessment-section" class="searchable-section space-y-6">
+      <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-lg space-y-6">
+        
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-5 border-b border-slate-200 gap-4">
+          <div>
+            <span class="px-3 py-1 rounded-md text-xs font-bold bg-brand-100 text-brand-700 border border-brand-200">Formative Assessment</span>
+            <h3 class="text-2xl font-black text-slate-900 mt-1">Chapter 01 Comprehension Check</h3>
+            <p class="text-xs text-slate-500 mt-0.5">Test your mastery of Topologies, Scalability, and Cloud Models. Instant feedback & scoring provided.</p>
+          </div>
+          <div class="flex items-center gap-4">
+            <div class="text-right">
+              <div class="text-xs font-bold text-slate-400 uppercase tracking-wider">Score</div>
+              <div class="text-2xl font-mono font-black text-brand-600" id="quizScoreDisplay">0 / 4</div>
+            </div>
+            <button onclick="resetQuiz()" class="p-2.5 rounded-2xl bg-slate-100 text-slate-700 hover:bg-slate-200 transition border border-slate-200" title="Reset Quiz">
+              <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Quiz Questions -->
+        <div class="space-y-6" id="quizContainer">
+          
+          <!-- Q1 -->
+          <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-3" id="q-block-1">
+            <div class="flex items-start justify-between">
+              <span class="text-xs font-bold text-brand-700 uppercase tracking-wide">Question 1: Network Topologies</span>
+              <span class="text-xs text-slate-400 font-mono font-bold">1 pt</span>
+            </div>
+            <p class="text-sm font-bold text-slate-900">
+              In a network with 6 computers connected in a Full Mesh topology, how many total dedicated physical connection links are required?
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs">
+              <button onclick="checkAnswer(1, 0, false)" class="q-opt-1 p-3.5 rounded-xl bg-white border border-slate-200 text-left hover:border-brand-400 hover:bg-brand-50 transition font-medium">A) 6 links</button>
+              <button onclick="checkAnswer(1, 1, false)" class="q-opt-1 p-3.5 rounded-xl bg-white border border-slate-200 text-left hover:border-brand-400 hover:bg-brand-50 transition font-medium">B) 12 links</button>
+              <button onclick="checkAnswer(1, 2, true)"  class="q-opt-1 p-3.5 rounded-xl bg-white border border-slate-200 text-left hover:border-brand-400 hover:bg-brand-50 transition font-medium">C) 15 links [Formula: N(N-1)/2]</button>
+              <button onclick="checkAnswer(1, 3, false)" class="q-opt-1 p-3.5 rounded-xl bg-white border border-slate-200 text-left hover:border-brand-400 hover:bg-brand-50 transition font-medium">D) 30 links</button>
+            </div>
+            <div id="feedback-1" class="hidden text-xs p-3.5 rounded-xl font-medium"></div>
+          </div>
+
+          <!-- Q2 -->
+          <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-3" id="q-block-2">
+            <div class="flex items-start justify-between">
+              <span class="text-xs font-bold text-brand-700 uppercase tracking-wide">Question 2: Fault Isolation & Star Topology</span>
+              <span class="text-xs text-slate-400 font-mono font-bold">1 pt</span>
+            </div>
+            <p class="text-sm font-bold text-slate-900">
+              Why is the Star topology predominantly chosen for standard modern computer lab layouts at institutions like IBA Sukkur?
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs">
+              <button onclick="checkAnswer(2, 0, false)" class="q-opt-2 p-3.5 rounded-xl bg-white border border-slate-200 text-left hover:border-brand-400 hover:bg-brand-50 transition font-medium">A) It uses the least amount of copper cabling among all layouts.</button>
+              <button onclick="checkAnswer(2, 1, true)"  class="q-opt-2 p-3.5 rounded-xl bg-white border border-slate-200 text-left hover:border-brand-400 hover:bg-brand-50 transition font-medium">B) A fault in any individual workstation cable isolates only that device without halting the whole lab.</button>
+              <button onclick="checkAnswer(2, 2, false)" class="q-opt-2 p-3.5 rounded-xl bg-white border border-slate-200 text-left hover:border-brand-400 hover:bg-brand-50 transition font-medium">C) It continues to operate even if the central network switch fails completely.</button>
+              <button onclick="checkAnswer(2, 3, false)" class="q-opt-2 p-3.5 rounded-xl bg-white border border-slate-200 text-left hover:border-brand-400 hover:bg-brand-50 transition font-medium">D) It eliminates the need for any network interface cards (NICs).</button>
+            </div>
+            <div id="feedback-2" class="hidden text-xs p-3.5 rounded-xl font-medium"></div>
+          </div>
+
+          <!-- Q3 -->
+          <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-3" id="q-block-3">
+            <div class="flex items-start justify-between">
+              <span class="text-xs font-bold text-brand-700 uppercase tracking-wide">Question 3: Cloud Service Models</span>
+              <span class="text-xs text-slate-400 font-mono font-bold">1 pt</span>
+            </div>
+            <p class="text-sm font-bold text-slate-900">
+              A computer science instructor uses Google Classroom and Microsoft 365 to grade student submissions via web browser without managing any source code, operating systems, or backend servers. Which service model is this?
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs">
+              <button onclick="checkAnswer(3, 0, false)" class="q-opt-3 p-3.5 rounded-xl bg-white border border-slate-200 text-left hover:border-brand-400 hover:bg-brand-50 transition font-medium">A) IaaS (Infrastructure as a Service)</button>
+              <button onclick="checkAnswer(3, 1, false)" class="q-opt-3 p-3.5 rounded-xl bg-white border border-slate-200 text-left hover:border-brand-400 hover:bg-brand-50 transition font-medium">B) PaaS (Platform as a Service)</button>
+              <button onclick="checkAnswer(3, 2, true)"  class="q-opt-3 p-3.5 rounded-xl bg-white border border-slate-200 text-left hover:border-brand-400 hover:bg-brand-50 transition font-medium">C) SaaS (Software as a Service)</button>
+              <button onclick="checkAnswer(3, 3, false)" class="q-opt-3 p-3.5 rounded-xl bg-white border border-slate-200 text-left hover:border-brand-400 hover:bg-brand-50 transition font-medium">D) DaaS (Data as a Service)</button>
+            </div>
+            <div id="feedback-3" class="hidden text-xs p-3.5 rounded-xl font-medium"></div>
+          </div>
+
+          <!-- Q4 -->
+          <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-3" id="q-block-4">
+            <div class="flex items-start justify-between">
+              <span class="text-xs font-bold text-brand-700 uppercase tracking-wide">Question 4: Cloud Deployment Architectures</span>
+              <span class="text-xs text-slate-400 font-mono font-bold">1 pt</span>
+            </div>
+            <p class="text-sm font-bold text-slate-900">
+              IBA Sukkur maintains student examination transcripts on an on-campus private server while hosting its public admissions portal on Amazon Web Services (AWS). What deployment model is being utilized?
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs">
+              <button onclick="checkAnswer(4, 0, false)" class="q-opt-4 p-3.5 rounded-xl bg-white border border-slate-200 text-left hover:border-brand-400 hover:bg-brand-50 transition font-medium">A) Public Cloud Only</button>
+              <button onclick="checkAnswer(4, 1, false)" class="q-opt-4 p-3.5 rounded-xl bg-white border border-slate-200 text-left hover:border-brand-400 hover:bg-brand-50 transition font-medium">B) Private Cloud Only</button>
+              <button onclick="checkAnswer(4, 2, false)" class="q-opt-4 p-3.5 rounded-xl bg-white border border-slate-200 text-left hover:border-brand-400 hover:bg-brand-50 transition font-medium">C) Community Cloud</button>
+              <button onclick="checkAnswer(4, 3, true)"  class="q-opt-4 p-3.5 rounded-xl bg-white border border-slate-200 text-left hover:border-brand-400 hover:bg-brand-50 transition font-medium">D) Hybrid Cloud</button>
+            </div>
+            <div id="feedback-4" class="hidden text-xs p-3.5 rounded-xl font-medium"></div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-slate-200 mt-16 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
+      <div class="flex items-center space-x-2">
+        <span class="font-bold text-slate-800">IBA Public School, Sukkur</span>
+        <span>•</span>
+        <span>Department of Computer Science</span>
+      </div>
+      <div>
+        Curriculum Designed & Instructed by <strong>Sir Abdul Razak</strong>
+      </div>
+      <div class="flex items-center gap-4 text-slate-400 font-medium">
+        <span>Chapter 01: Computer Networks & Cloud Computing</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Application Logic -->
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // ==========================================
+    // TOPOLOGY SIMULATOR STATE & PEDAGOGICAL DATA
+    // ==========================================
+    const topologyData = {
+      bus: {
+        name: "Bus Topology",
+        analogyTitle: "School Corridor Analogy",
+        analogyText: "Think of a single straight school corridor where every classroom door opens to the exact same hallway. If the hallway is blocked or collapsed in the middle, students cannot reach rooms past the blockage.",
+        pros: [
+          "Simple, straightforward, and economical installation",
+          "Requires minimum copper cabling compared to other layouts",
+          "Easy to implement for small, temporary single-room setups"
+        ],
+        cons: [
+          "Central backbone coaxial cable is a single point of failure",
+          "Heavy packet collisions and bandwidth degradation as node count grows",
+          "Difficult to isolate specific cable breaks without inspecting the entire line"
+        ],
+        apps: "Small single-room temporary labs, early legacy Ethernet (10BASE2/10BASE5 coax standards).",
+        nodesCount: 5,
+        render: renderBusSVG
+      },
+      ring: {
+        name: "Ring Topology",
+        analogyTitle: "Circle Notebook Passing",
+        analogyText: "Imagine students sitting in a circle passing an assignment notebook. You can only hand it to the student directly on your right. If any single student steps away or drops the notebook, the entire token flow halts.",
+        pros: [
+          "Orderly, deterministic data flow with zero packet collisions",
+          "Performs reliably under high traffic loads due to token passing",
+          "Equal access opportunities for all workstations"
+        ],
+        cons: [
+          "A single node breakdown or severed line disables the entire loop",
+          "Adding or moving a node temporarily halts the network",
+          "High latency as packets must traverse sequentially through intermediate stations"
+        ],
+        apps: "High-speed campus fiber backbones (FDDI, SONET rings) and legacy IBM Token Ring networks.",
+        nodesCount: 5,
+        render: renderRingSVG
+      },
+      star: {
+        name: "Star Topology",
+        analogyTitle: "Airport Control Tower",
+        analogyText: "Like an airport control tower communicating individually with every flight. If flight PK-302 loses radio contact, all other aircraft continue landing and communicating with the tower normally.",
+        pros: [
+          "Isolated cable faults—one cut cable affects only that specific workstation",
+          "Very easy to expand by simply plugging new twisted-pair cables into spare ports",
+          "Centralized monitoring, diagnostics, and traffic management"
+        ],
+        cons: [
+          "Central switch or hub represents a single point of failure",
+          "Requires significantly more cabling than Bus topology",
+          "Expansion is capped by physical switch port density"
+        ],
+        apps: "Standard modern computer labs at IBA Public School Sukkur, office LANs, and home Wi-Fi routers.",
+        nodesCount: 5,
+        render: renderStarSVG
+      },
+      tree: {
+        name: "Tree (Hierarchical) Topology",
+        analogyTitle: "School Administration Hierarchy",
+        analogyText: "School administrative tree: Principal → Section Headmasters → Class Teachers → Students. If one Headmaster is absent, only their specific departmental branch is impacted while other wings function uninterrupted.",
+        pros: [
+          "Highly scalable structure organized into distinct hierarchical tiers",
+          "Easy to isolate and troubleshoot faults within sub-tree branches",
+          "Facilitates multi-departmental campus networking"
+        ],
+        cons: [
+          "If the root core switch fails, the entire network structure collapses",
+          "Demands complex routing switch configurations and cable management",
+          "Maintenance complexity increases with hierarchical depth"
+        ],
+        apps: "Campus-wide enterprise networks (e.g., connecting Science, Commerce, and Administration wings to the main server room).",
+        nodesCount: 7,
+        render: renderTreeSVG
+      },
+      mesh: {
+        name: "Mesh Topology (Full & Partial)",
+        analogyTitle: "Direct Dedicated Hotlines",
+        analogyText: "Private dedicated telephone hotlines installed directly between every head of department. Total privacy and zero traffic congestion, but requiring hundreds of cables crisscrossing the building.",
+        pros: [
+          "100% Fault tolerance—traffic auto-routes instantly around any severed line",
+          "Dedicated point-to-point bandwidth guarantees zero traffic collisions",
+          "High privacy and physical link isolation"
+        ],
+        cons: [
+          "Extremely expensive cabling overhead [Formula: N(N-1)/2 links for full mesh]",
+          "High hardware port requirement per computer node",
+          "Complex installation and difficult physical troubleshooting"
+        ],
+        apps: "Core telecommunications backbones, nuclear power control facilities, and military defense networks.",
+        nodesCount: 5,
+        render: renderMeshSVG
+      },
+      hybrid: {
+        name: "Hybrid Topology (Star-Bus / Star-Ring)",
+        analogyTitle: "IBA Sukkur Campus Network",
+        analogyText: "Individual computer labs wired with independent Star topologies, and all lab central switches linked together across buildings using a high-speed campus fiber optic backbone.",
+        pros: [
+          "Combines the benefits of multiple topologies into one tailored solution",
+          "Extremely flexible and scales naturally with institutional expansion",
+          "Isolates lab errors from impacting other school departments"
+        ],
+        cons: [
+          "Complex design requiring sophisticated multi-protocol routers",
+          "Higher initial deployment and maintenance expenditure",
+          "Requires skilled network engineering administration"
+        ],
+        apps: "Real-world university campuses, modern enterprise corporate office clusters, and metropolitan area networks.",
+        nodesCount: 6,
+        render: renderHybridSVG
+      }
+    };
+
+    let currentTopologyKey = 'bus';
+    let failedNodes = new Set();
+    let backboneFailed = false;
+
+    function switchTopology(key) {
+      currentTopologyKey = key;
+      failedNodes.clear();
+      backboneFailed = false;
+
+      // Update tab buttons
+      document.querySelectorAll('#topologyTabButtons button').forEach(btn => {
+        btn.className = "px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-700 hover:bg-brand-50 hover:text-brand-600 transition";
+      });
+      const activeBtn = document.getElementById(`tab-${key}`);
+      if (activeBtn) {
+        activeBtn.className = "px-3 py-1.5 rounded-xl text-xs font-bold bg-brand-600 text-white transition shadow-sm";
+      }
+
+      renderCurrentTopology();
+      updateTopologyDetails();
+      updateSimulatorStatus();
+    }
+
+    function toggleNode(nodeIndex) {
+      if (failedNodes.has(nodeIndex)) {
+        failedNodes.delete(nodeIndex);
+      } else {
+        failedNodes.add(nodeIndex);
+      }
+      renderCurrentTopology();
+      updateSimulatorStatus();
+    }
+
+    function toggleBackbone() {
+      backboneFailed = !backboneFailed;
+      renderCurrentTopology();
+      updateSimulatorStatus();
+    }
+
+    function resetSimulator() {
+      failedNodes.clear();
+      backboneFailed = false;
+      renderCurrentTopology();
+      updateSimulatorStatus();
+    }
+
+    function updateSimulatorStatus() {
+      const badge = document.getElementById('simulatorStatusBadge');
+      if (backboneFailed) {
+        badge.className = "px-3 py-1 rounded-full text-xs font-bold bg-red-100 text-red-800 border border-red-200 animate-pulse flex items-center gap-1.5";
+        badge.innerHTML = `<span class="w-2 h-2 rounded-full bg-red-600"></span><span>Backbone / Root Down: Outage</span>`;
+        return;
+      }
+      if (failedNodes.size > 0) {
+        badge.className = "px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-800 border border-amber-200 flex items-center gap-1.5";
+        badge.innerHTML = `<span class="w-2 h-2 rounded-full bg-amber-500"></span><span>${failedNodes.size} Node(s) Offline</span>`;
+      } else {
+        badge.className = "px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-200 flex items-center gap-1.5";
+        badge.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-500"></span><span>Topology Healthy</span>`;
+      }
+    }
+
+    function updateTopologyDetails() {
+      const data = topologyData[currentTopologyKey];
+      const card = document.getElementById('topologyDetailsCard');
+      card.innerHTML = `
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <div>
+              <span class="text-xs font-bold uppercase tracking-wider text-brand-600">Topic 1.5.3</span>
+              <h4 class="text-xl font-extrabold text-slate-900 mt-0.5">${data.name}</h4>
+            </div>
+            <span class="text-xs px-2.5 py-1 rounded-lg bg-brand-50 text-brand-700 font-bold border border-brand-200">Interactive Model</span>
+          </div>
+
+          <!-- Real Life Analogy Box -->
+          <div class="p-4 rounded-2xl bg-brand-50/70 border border-brand-200 text-xs">
+            <strong class="text-brand-900 font-bold flex items-center gap-1.5 mb-1 text-xs">
+              <i data-lucide="lightbulb" class="w-4 h-4 text-amber-500"></i> ${data.analogyTitle}:
+            </strong>
+            <p class="text-brand-800 leading-relaxed">${data.analogyText}</p>
+          </div>
+
+          <!-- Pros and Cons -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+            <div class="p-3.5 rounded-2xl bg-emerald-50/60 border border-emerald-200 space-y-2">
+              <strong class="text-emerald-900 font-bold flex items-center gap-1">
+                <i data-lucide="thumbs-up" class="w-3.5 h-3.5 text-emerald-600"></i> Key Advantages
+              </strong>
+              <ul class="space-y-1 text-slate-700 list-disc list-inside leading-relaxed">
+                ${data.pros.map(p => `<li>${p}</li>`).join('')}
+              </ul>
+            </div>
+
+            <div class="p-3.5 rounded-2xl bg-rose-50/60 border border-rose-200 space-y-2">
+              <strong class="text-rose-900 font-bold flex items-center gap-1">
+                <i data-lucide="thumbs-down" class="w-3.5 h-3.5 text-rose-600"></i> Disadvantages
+              </strong>
+              <ul class="space-y-1 text-slate-700 list-disc list-inside leading-relaxed">
+                ${data.cons.map(c => `<li>${c}</li>`).join('')}
+              </ul>
+            </div>
+          </div>
+
+          <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs">
+            <strong class="text-slate-800 block mb-0.5 font-bold">Real-Life School & Industry Applications:</strong>
+            <span class="text-slate-600 leading-relaxed">${data.apps}</span>
+          </div>
+        </div>
+      `;
+      lucide.createIcons();
+    }
+
+    // ==========================================
+    // SVG RENDERERS FOR TOPOLOGIES
+    // ==========================================
+    function renderCurrentTopology() {
+      const container = document.getElementById('svgContainer');
+      container.innerHTML = topologyData[currentTopologyKey].render();
+    }
+
+    function renderBusSVG() {
+      const bColor = backboneFailed ? "#EF4444" : "#0284C7";
+      const bStyle = backboneFailed ? "stroke-dasharray: 4;" : "";
+      
+      let nodesSVG = "";
+      const positions = [60, 130, 200, 270, 340];
+
+      positions.forEach((x, i) => {
+        const isOffline = failedNodes.has(i) || backboneFailed;
+        const nColor = isOffline ? "#EF4444" : "#0284C7";
+        const dropLineColor = isOffline ? "#FDA4AF" : "#38BDF8";
+        const isTop = i % 2 === 0;
+        const y = isTop ? 40 : 160;
+
+        nodesSVG += `
+          <!-- Drop Line -->
+          <line x1="${x}" y1="100" x2="${x}" y2="${y}" stroke="${dropLineColor}" stroke-width="3" stroke-dasharray="${isOffline ? '3' : '0'}" />
+          <!-- Workstation Node -->
+          <g onclick="toggleNode(${i})" class="cursor-pointer" title="Click to toggle PC${i+1} status">
+            <circle cx="${x}" cy="${y}" r="17" fill="${nColor}" stroke="#FFFFFF" stroke-width="2.5" />
+            <text x="${x}" y="${y + 4}" fill="#FFFFFF" font-size="10" font-weight="bold" text-anchor="middle">PC${i+1}</text>
+          </g>
+        `;
+      });
+
+      return `
+        <svg viewBox="0 0 400 200" class="w-full h-full select-none">
+          <!-- Terminators -->
+          <rect x="15" y="82" width="10" height="36" fill="#334155" rx="3" />
+          <text x="20" y="130" fill="#64748B" font-size="8" font-weight="bold" text-anchor="middle">50Ω Term</text>
+          <rect x="375" y="82" width="10" height="36" fill="#334155" rx="3" />
+          <text x="380" y="130" fill="#64748B" font-size="8" font-weight="bold" text-anchor="middle">50Ω Term</text>
+
+          <!-- Central Coaxial Backbone Cable -->
+          <g onclick="toggleBackbone()" class="cursor-pointer" title="Click to simulate backbone cable cut">
+            <line x1="25" y1="100" x2="375" y2="100" stroke="${bColor}" stroke-width="6" style="${bStyle}" />
+            <text x="200" y="93" fill="${backboneFailed ? '#EF4444' : '#0369A1'}" font-size="9" font-weight="bold" text-anchor="middle">
+              ${backboneFailed ? '⚡ BACKBONE SEVERED (Click to reconnect)' : 'Central Backbone Coaxial Cable (Click to cut)'}
+            </text>
+          </g>
+
+          ${nodesSVG}
+        </svg>
+      `;
+    }
+
+    function renderRingSVG() {
+      const center = { x: 200, y: 100 };
+      const radius = 68;
+      const total = 5;
+      let lines = "";
+      let nodes = "";
+
+      const coords = [];
+      for (let i = 0; i < total; i++) {
+        const angle = (i * 2 * Math.PI / total) - (Math.PI / 2);
+        coords.push({
+          x: center.x + radius * Math.cos(angle),
+          y: center.y + radius * Math.sin(angle)
+        });
+      }
+
+      // Ring Links
+      for (let i = 0; i < total; i++) {
+        const next = (i + 1) % total;
+        const linkBroken = failedNodes.has(i) || failedNodes.has(next);
+        const color = linkBroken ? "#FDA4AF" : "#38BDF8";
+        lines += `<line x1="${coords[i].x}" y1="${coords[i].y}" x2="${coords[next].x}" y2="${coords[next].y}" stroke="${color}" stroke-width="3.5" stroke-dasharray="${linkBroken ? '4' : '0'}" />`;
+      }
+
+      coords.forEach((pt, i) => {
+        const isOffline = failedNodes.has(i);
+        const color = isOffline ? "#EF4444" : "#0284C7";
+        nodes += `
+          <g onclick="toggleNode(${i})" class="cursor-pointer" title="Click to toggle PC${i+1} status">
+            <circle cx="${pt.x}" cy="${pt.y}" r="16" fill="${color}" stroke="#FFFFFF" stroke-width="2.5" />
+            <text x="${pt.x}" y="${pt.y + 4}" fill="#FFFFFF" font-size="10" font-weight="bold" text-anchor="middle">PC${i+1}</text>
+          </g>
+        `;
+      });
+
+      return `
+        <svg viewBox="0 0 400 200" class="w-full h-full select-none">
+          <text x="200" y="98" fill="#64748B" font-size="10" text-anchor="middle" font-weight="bold">Token Passing Ring</text>
+          <text x="200" y="112" fill="#94A3B8" font-size="8.5" text-anchor="middle">↻ Unidirectional Loop</text>
+          ${lines}
+          ${nodes}
+        </svg>
+      `;
+    }
+
+    function renderStarSVG() {
+      const center = { x: 200, y: 100 };
+      const radius = 68;
+      const total = 5;
+      let lines = "";
+      let nodes = "";
+
+      const coords = [];
+      for (let i = 0; i < total; i++) {
+        const angle = (i * 2 * Math.PI / total) - (Math.PI / 2);
+        coords.push({
+          x: center.x + radius * Math.cos(angle),
+          y: center.y + radius * Math.sin(angle)
+        });
+      }
+
+      const hubOffline = backboneFailed;
+      const hubColor = hubOffline ? "#EF4444" : "#0F172A";
+
+      coords.forEach((pt, i) => {
+        const isOffline = failedNodes.has(i) || hubOffline;
+        const lineColor = isOffline ? "#FDA4AF" : "#38BDF8";
+        lines += `<line x1="${center.x}" y1="${center.y}" x2="${pt.x}" y2="${pt.y}" stroke="${lineColor}" stroke-width="3" stroke-dasharray="${isOffline ? '3' : '0'}" />`;
+
+        const nodeColor = isOffline ? "#EF4444" : "#0284C7";
+        nodes += `
+          <g onclick="toggleNode(${i})" class="cursor-pointer" title="Click to toggle PC${i+1} status">
+            <circle cx="${pt.x}" cy="${pt.y}" r="15" fill="${nodeColor}" stroke="#FFFFFF" stroke-width="2" />
+            <text x="${pt.x}" y="${pt.y + 4}" fill="#FFFFFF" font-size="9" font-weight="bold" text-anchor="middle">PC${i+1}</text>
+          </g>
+        `;
+      });
+
+      return `
+        <svg viewBox="0 0 400 200" class="w-full h-full select-none">
+          ${lines}
+          <!-- Central Hub / Switch -->
+          <g onclick="toggleBackbone()" class="cursor-pointer" title="Click to simulate Central Switch crash">
+            <rect x="${center.x - 28}" y="${center.y - 20}" width="56" height="40" fill="${hubColor}" rx="8" stroke="#38BDF8" stroke-width="2" />
+            <text x="${center.x}" y="${center.y - 2}" fill="#FFFFFF" font-size="9" font-weight="bold" text-anchor="middle">SWITCH</text>
+            <text x="${center.x}" y="${center.y + 10}" fill="${hubOffline ? '#FECACA' : '#7DD3FC'}" font-size="7.5" text-anchor="middle">${hubOffline ? 'OFFLINE' : 'ONLINE'}</text>
+          </g>
+          ${nodes}
+        </svg>
+      `;
+    }
+
+    function renderTreeSVG() {
+      const rootOffline = backboneFailed;
+      const rootColor = rootOffline ? "#EF4444" : "#0F172A";
+
+      return `
+        <svg viewBox="0 0 400 200" class="w-full h-full select-none">
+          <!-- Root to Mid lines -->
+          <line x1="200" y1="35" x2="110" y2="95" stroke="${rootOffline ? '#FDA4AF' : '#38BDF8'}" stroke-width="3" />
+          <line x1="200" y1="35" x2="290" y2="95" stroke="${rootOffline ? '#FDA4AF' : '#38BDF8'}" stroke-width="3" />
+
+          <!-- Mid to Leaves -->
+          <line x1="110" y1="95" x2="60" y2="155" stroke="${rootOffline || failedNodes.has(0) ? '#FDA4AF' : '#38BDF8'}" stroke-width="2.5" />
+          <line x1="110" y1="95" x2="140" y2="155" stroke="${rootOffline || failedNodes.has(1) ? '#FDA4AF' : '#38BDF8'}" stroke-width="2.5" />
+          <line x1="290" y1="95" x2="260" y2="155" stroke="${rootOffline || failedNodes.has(2) ? '#FDA4AF' : '#38BDF8'}" stroke-width="2.5" />
+          <line x1="290" y1="95" x2="340" y2="155" stroke="${rootOffline || failedNodes.has(3) ? '#FDA4AF' : '#38BDF8'}" stroke-width="2.5" />
+
+          <!-- Root Switch -->
+          <g onclick="toggleBackbone()" class="cursor-pointer" title="Click to simulate Root Core Switch failure">
+            <rect x="160" y="18" width="80" height="30" fill="${rootColor}" rx="6" stroke="#38BDF8" stroke-width="2"/>
+            <text x="200" y="36" fill="#FFFFFF" font-size="9" font-weight="bold" text-anchor="middle">ROOT SWITCH</text>
+          </g>
+
+          <!-- Branch Switches -->
+          <rect x="85" y="82" width="50" height="26" fill="#1E293B" rx="5"/>
+          <text x="110" y="98" fill="#FFFFFF" font-size="8" font-weight="bold" text-anchor="middle">Science Hub</text>
+
+          <rect x="265" y="82" width="50" height="26" fill="#1E293B" rx="5"/>
+          <text x="290" y="98" fill="#FFFFFF" font-size="8" font-weight="bold" text-anchor="middle">Admin Hub</text>
+
+          <!-- Leaf Nodes -->
+          <g onclick="toggleNode(0)" class="cursor-pointer" title="Toggle PC1">
+            <circle cx="60" cy="155" r="14" fill="${failedNodes.has(0) || rootOffline ? '#EF4444' : '#0284C7'}" stroke="#FFFFFF" stroke-width="2"/>
+            <text x="60" y="159" fill="#FFFFFF" font-size="8" font-weight="bold" text-anchor="middle">PC1</text>
+          </g>
+          <g onclick="toggleNode(1)" class="cursor-pointer" title="Toggle PC2">
+            <circle cx="140" cy="155" r="14" fill="${failedNodes.has(1) || rootOffline ? '#EF4444' : '#0284C7'}" stroke="#FFFFFF" stroke-width="2"/>
+            <text x="140" y="159" fill="#FFFFFF" font-size="8" font-weight="bold" text-anchor="middle">PC2</text>
+          </g>
+          <g onclick="toggleNode(2)" class="cursor-pointer" title="Toggle PC3">
+            <circle cx="260" cy="155" r="14" fill="${failedNodes.has(2) || rootOffline ? '#EF4444' : '#0284C7'}" stroke="#FFFFFF" stroke-width="2"/>
+            <text x="260" y="159" fill="#FFFFFF" font-size="8" font-weight="bold" text-anchor="middle">PC3</text>
+          </g>
+          <g onclick="toggleNode(3)" class="cursor-pointer" title="Toggle PC4">
+            <circle cx="340" cy="155" r="14" fill="${failedNodes.has(3) || rootOffline ? '#EF4444' : '#0284C7'}" stroke="#FFFFFF" stroke-width="2"/>
+            <text x="340" y="159" fill="#FFFFFF" font-size="8" font-weight="bold" text-anchor="middle">PC4</text>
+          </g>
+        </svg>
+      `;
+    }
+
+    function renderMeshSVG() {
+      const center = { x: 200, y: 100 };
+      const radius = 68;
+      const total = 5;
+      let lines = "";
+      let nodes = "";
+
+      const coords = [];
+      for (let i = 0; i < total; i++) {
+        const angle = (i * 2 * Math.PI / total) - (Math.PI / 2);
+        coords.push({
+          x: center.x + radius * Math.cos(angle),
+          y: center.y + radius * Math.sin(angle)
+        });
+      }
+
+      // 10 Point-to-Point connections [N(N-1)/2 = 10]
+      for (let i = 0; i < total; i++) {
+        for (let j = i + 1; j < total; j++) {
+          const broken = failedNodes.has(i) && failedNodes.has(j);
+          const color = broken ? "#FDA4AF" : "#38BDF8";
+          lines += `<line x1="${coords[i].x}" y1="${coords[i].y}" x2="${coords[j].x}" y2="${coords[j].y}" stroke="${color}" stroke-width="2" />`;
+        }
+      }
+
+      coords.forEach((pt, i) => {
+        const isOffline = failedNodes.has(i);
+        const nodeColor = isOffline ? "#EF4444" : "#0284C7";
+        nodes += `
+          <g onclick="toggleNode(${i})" class="cursor-pointer" title="Click to toggle PC${i+1}">
+            <circle cx="${pt.x}" cy="${pt.y}" r="15" fill="${nodeColor}" stroke="#FFFFFF" stroke-width="2" />
+            <text x="${pt.x}" y="${pt.y + 4}" fill="#FFFFFF" font-size="9" font-weight="bold" text-anchor="middle">PC${i+1}</text>
+          </g>
+        `;
+      });
+
+      return `
+        <svg viewBox="0 0 400 200" class="w-full h-full select-none">
+          <text x="200" y="100" fill="#64748B" font-size="9" text-anchor="middle" font-weight="bold">10 Dedicated Hotlines</text>
+          <text x="200" y="112" fill="#94A3B8" font-size="7.5" text-anchor="middle">100% Redundant Links</text>
+          ${lines}
+          ${nodes}
+        </svg>
+      `;
+    }
+
+    function renderHybridSVG() {
+      return `
+        <svg viewBox="0 0 400 200" class="w-full h-full select-none">
+          <!-- Main Trunk Line -->
+          <line x1="50" y1="100" x2="350" y2="100" stroke="#0284C7" stroke-width="5" />
+          <text x="200" y="93" fill="#0369A1" font-size="8.5" font-weight="bold" text-anchor="middle">IBA Sukkur Fiber Optic Backbone Trunk</text>
+
+          <!-- Left Star Cluster (Lab A) -->
+          <line x1="120" y1="100" x2="120" y2="55" stroke="#38BDF8" stroke-width="2.5" />
+          <rect x="95" y="40" width="50" height="24" fill="#0F172A" rx="4"/>
+          <text x="120" y="55" fill="#FFFFFF" font-size="8" font-weight="bold" text-anchor="middle">CS Lab A</text>
+          
+          <line x1="95" y1="52" x2="60" y2="38" stroke="#38BDF8" stroke-width="1.8" />
+          <line x1="145" y1="52" x2="180" y2="38" stroke="#38BDF8" stroke-width="1.8" />
+          <circle cx="60" cy="38" r="12" fill="#0284C7" stroke="#FFF" stroke-width="1.5" />
+          <text x="60" y="42" fill="#FFF" font-size="8" font-weight="bold" text-anchor="middle">PC1</text>
+          <circle cx="180" cy="38" r="12" fill="#0284C7" stroke="#FFF" stroke-width="1.5" />
+          <text x="180" y="42" fill="#FFF" font-size="8" font-weight="bold" text-anchor="middle">PC2</text>
+
+          <!-- Right Star Cluster (Lab B) -->
+          <line x1="280" y1="100" x2="280" y2="145" stroke="#38BDF8" stroke-width="2.5" />
+          <rect x="255" y="135" width="50" height="24" fill="#0F172A" rx="4"/>
+          <text x="280" y="150" fill="#FFFFFF" font-size="8" font-weight="bold" text-anchor="middle">CS Lab B</text>
+
+          <line x1="255" y1="147" x2="220" y2="162" stroke="#38BDF8" stroke-width="1.8" />
+          <line x1="305" y1="147" x2="340" y2="162" stroke="#38BDF8" stroke-width="1.8" />
+          <circle cx="220" cy="162" r="12" fill="#0284C7" stroke="#FFF" stroke-width="1.5" />
+          <text x="220" y="166" fill="#FFF" font-size="8" font-weight="bold" text-anchor="middle">PC3</text>
+          <circle cx="340" cy="162" r="12" fill="#0284C7" stroke="#FFF" stroke-width="1.5" />
+          <text x="340" y="166" fill="#FFF" font-size="8" font-weight="bold" text-anchor="middle">PC4</text>
+        </svg>
+      `;
+    }
+
+    // ==========================================
+    // METRIC GAUGE & LOAD SIMULATOR
+    // ==========================================
+    function updateMetricDashboard(students) {
+      document.getElementById('studentCountDisplay').innerText = students;
+      const count = parseInt(students);
+
+      // Calculations
+      const rtt = (8 + (count * 0.08)).toFixed(1);
+      const pdr = (100 - (count > 380 ? (count - 380) * 0.025 : 0)).toFixed(1);
+      const jitter = (1.4 + (count * 0.01)).toFixed(1);
+      const uptime = (99.99 - (count > 500 ? (count - 500) * 0.012 : 0)).toFixed(2);
+
+      document.getElementById('metricRTT').innerText = `${rtt} ms`;
+      document.getElementById('metricPDR').innerText = `${pdr}%`;
+      document.getElementById('metricJitter').innerText = `${jitter} ms`;
+      document.getElementById('metricUptime').innerText = `${uptime}%`;
+
+      const rttStatus = document.getElementById('metricRTTStatus');
+      const pdrStatus = document.getElementById('metricPDRStatus');
+
+      if (count > 450) {
+        rttStatus.innerText = "Heavy Queue Delay";
+        rttStatus.className = "text-[11px] font-medium text-red-400";
+        pdrStatus.innerText = "Buffer Discard Active";
+        pdrStatus.className = "text-[11px] font-medium text-red-400";
+      } else if (count > 250) {
+        rttStatus.innerText = "Moderate Campus Load";
+        rttStatus.className = "text-[11px] font-medium text-amber-400";
+        pdrStatus.innerText = "Minor Packet Queuing";
+        pdrStatus.className = "text-[11px] font-medium text-amber-400";
+      } else {
+        rttStatus.innerText = "Optimal Speed";
+        rttStatus.className = "text-[11px] font-medium text-emerald-400";
+        pdrStatus.innerText = "Negligible Loss";
+        pdrStatus.className = "text-[11px] font-medium text-emerald-400";
+      }
+    }
+
+    // ==========================================
+    // CLOUD ANALOGY SWITCHER (PIZZA & TRANSPORT)
+    // ==========================================
+    const analogyData = {
+      pizza: {
+        iaas: `<strong>🍕 "Bake At Home"</strong><br/>The grocery store provides raw dough, tomato sauce, cheese, and pepperonis. You must supply your own oven, baking pan, gas, electricity, and dining table.`,
+        paas: `<strong>🍕 "Pizza Delivery"</strong><br/>The pizzeria prepares and bakes the pizza in their commercial industrial oven. You provide the dining table, plates, napkins, and drinks.`,
+        saas: `<strong>🍕 "Dine-in at Restaurant"</strong><br/>You walk in, sit down, eat, and pay. The restaurant handles cooking, ovens, ingredients, table service, and dishwashing.`
+      },
+      transport: {
+        iaas: `<strong>🚗 "Car Rental / Lease"</strong><br/>You rent the vehicle chassis and engine. You drive, fuel, navigate routes, and service tires yourself.`,
+        paas: `<strong>🚕 "Taxi / Careem Ride"</strong><br/>The driver owns, fuels, and navigates the vehicle. You simply state your destination and ride comfortably.`,
+        saas: `<strong>🚌 "Commercial Airline Flight"</strong><br/>You buy an e-ticket and sit. Airplane maintenance, jet fuel, avionics, and pilot flight paths are 100% managed by the airline.`
+      }
+    };
+
+    function switchServiceAnalogy(type) {
+      document.getElementById('btn-analogy-pizza').className = type === 'pizza' 
+        ? "px-3.5 py-1.5 text-xs font-bold rounded-xl bg-brand-600 text-white transition shadow-sm"
+        : "px-3.5 py-1.5 text-xs font-bold rounded-xl text-slate-600 hover:text-brand-600 transition";
+      
+      document.getElementById('btn-analogy-transport').className = type === 'transport'
+        ? "px-3.5 py-1.5 text-xs font-bold rounded-xl bg-brand-600 text-white transition shadow-sm"
+        : "px-3.5 py-1.5 text-xs font-bold rounded-xl text-slate-600 hover:text-brand-600 transition";
+
+      document.getElementById('iaas-analogy-box').innerHTML = analogyData[type].iaas;
+      document.getElementById('paas-analogy-box').innerHTML = analogyData[type].paas;
+      document.getElementById('saas-analogy-box').innerHTML = analogyData[type].saas;
+    }
+
+    // ==========================================
+    // FORMATIVE ASSESSMENT MODULE
+    // ==========================================
+    const userAnswers = {};
+    const totalQuestions = 4;
+
+    function checkAnswer(qNum, optIndex, isCorrect) {
+      userAnswers[qNum] = isCorrect;
+      
+      const buttons = document.querySelectorAll(`.q-opt-${qNum}`);
+      buttons.forEach((btn, idx) => {
+        btn.disabled = true;
+        if (idx === optIndex) {
+          if (isCorrect) {
+            btn.className = "p-3.5 rounded-xl bg-emerald-100 border-2 border-emerald-500 text-left font-bold text-emerald-900";
+          } else {
+            btn.className = "p-3.5 rounded-xl bg-rose-100 border-2 border-rose-500 text-left font-bold text-rose-900";
+          }
+        } else {
+          btn.className = "p-3.5 rounded-xl bg-slate-100 border border-slate-200 text-left opacity-50 text-slate-500";
+        }
+      });
+
+      const feedback = document.getElementById(`feedback-${qNum}`);
+      feedback.classList.remove('hidden');
+      if (isCorrect) {
+        feedback.className = "text-xs p-3.5 rounded-xl bg-emerald-50 text-emerald-900 border border-emerald-200";
+        feedback.innerHTML = `<strong>✓ Correct!</strong> Outstanding work. Key syllabus concept validated.`;
+      } else {
+        feedback.className = "text-xs p-3.5 rounded-xl bg-rose-50 text-rose-900 border border-rose-200";
+        feedback.innerHTML = `<strong>✗ Incorrect.</strong> Review the sub-topic section above and try again.`;
+      }
+
+      updateQuizScore();
+    }
+
+    function updateQuizScore() {
+      let score = 0;
+      for (const k in userAnswers) {
+        if (userAnswers[k] === true) score++;
+      }
+      document.getElementById('quizScoreDisplay').innerText = `${score} / ${totalQuestions}`;
+    }
+
+    function resetQuiz() {
+      for (let i = 1; i <= totalQuestions; i++) {
+        delete userAnswers[i];
+        const buttons = document.querySelectorAll(`.q-opt-${i}`);
+        buttons.forEach((btn) => {
+          btn.disabled = false;
+          btn.className = "p-3.5 rounded-xl bg-white border border-slate-200 text-left hover:border-brand-400 hover:bg-brand-50 transition font-medium";
+        });
+        const feedback = document.getElementById(`feedback-${i}`);
+        feedback.classList.add('hidden');
+      }
+      updateQuizScore();
+    }
+
+    // ==========================================
+    // UI UTILITIES & LIVE SEARCH
+    // ==========================================
+    let isLectureMode = false;
+    function toggleLectureMode() {
+      isLectureMode = !isLectureMode;
+      document.body.classList.toggle('lecture-mode', isLectureMode);
+      const btn = document.getElementById('lectureToggleBtn');
+      if (isLectureMode) {
+        btn.className = "flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold text-white bg-brand-700 rounded-xl shadow-md";
+        btn.innerHTML = `<i data-lucide="minimize-2" class="w-4 h-4"></i><span class="hidden sm:inline">Exit Smartboard</span>`;
+      } else {
+        btn.className = "flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold text-brand-700 bg-brand-100 hover:bg-brand-200 rounded-xl transition border border-brand-200 shadow-sm";
+        btn.innerHTML = `<i data-lucide="presentation" class="w-4 h-4"></i><span class="hidden sm:inline">Smartboard Mode</span>`;
+      }
+      lucide.createIcons();
+    }
+
+    function handleLiveSearch(query) {
+      const term = query.toLowerCase().trim();
+      const sections = document.querySelectorAll('.searchable-section');
+      
+      sections.forEach(sec => {
+        if (!term) {
+          sec.style.display = "block";
+          return;
+        }
+        const text = sec.innerText.toLowerCase();
+        if (text.includes(term)) {
+          sec.style.display = "block";
+        } else {
+          sec.style.display = "none";
+        }
+      });
+    }
+
+    // ==========================================
+    // ANIMATED BROWSER TAB ICON (FAVICON ENGINE)
+    // ==========================================
+    function initAnimatedFavicon() {
+      const canvas = document.createElement('canvas');
+      canvas.width = 32;
+      canvas.height = 32;
+      const ctx = canvas.getContext('2d');
+      const faviconLink = document.getElementById('dynamicFavicon');
+      
+      let angle = 0;
+      let pulsePhase = 0;
+
+      function renderFaviconFrame() {
+        ctx.clearRect(0, 0, 32, 32);
+
+        // 1. Draw Rounded Brand Background Badge
+        const grad = ctx.createLinearGradient(0, 0, 32, 32);
+        grad.addColorStop(0, '#0369A1');
+        grad.addColorStop(1, '#0284C7');
+
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        if (ctx.roundRect) {
+          ctx.roundRect(1, 1, 30, 30, 8);
+        } else {
+          ctx.rect(1, 1, 30, 30);
+        }
+        ctx.fill();
+
+        // 2. Outer Node Ring & Dashed Links
+        const cx = 16;
+        const cy = 16;
+        const radius = 9.5;
+        const numNodes = 4;
+
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
+        ctx.lineWidth = 1.2;
+        ctx.setLineDash([2, 2]);
+        ctx.beginPath();
+        ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.setLineDash([]); // Reset dash
+
+        // Draw 4 Peripheral Star/Ring Nodes
+        for (let i = 0; i < numNodes; i++) {
+          const nodeAngle = (i * Math.PI / 2);
+          const nx = cx + radius * Math.cos(nodeAngle);
+          const ny = cy + radius * Math.sin(nodeAngle);
+
+          ctx.fillStyle = '#BAE6FD';
+          ctx.beginPath();
+          ctx.arc(nx, ny, 2.2, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        // 3. Central Pulsing Server/Cloud Hub Node
+        const pulseSize = 3.8 + Math.sin(pulsePhase) * 0.8;
+        const glowOpacity = 0.4 + Math.sin(pulsePhase) * 0.3;
+
+        // Hub Aura Glow
+        ctx.fillStyle = `rgba(56, 189, 248, ${glowOpacity})`;
+        ctx.beginPath();
+        ctx.arc(cx, cy, pulseSize + 2.5, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Hub Solid Core
+        ctx.fillStyle = '#FFFFFF';
+        ctx.beginPath();
+        ctx.arc(cx, cy, pulseSize, 0, Math.PI * 2);
+        ctx.fill();
+
+        // 4. Fast Orbiting Data Packet
+        const packetX = cx + radius * Math.cos(angle);
+        const packetY = cy + radius * Math.sin(angle);
+
+        // Packet Glow & Head
+        ctx.fillStyle = '#38BDF8';
+        ctx.shadowColor = '#38BDF8';
+        ctx.shadowBlur = 4;
+        ctx.beginPath();
+        ctx.arc(packetX, packetY, 2.6, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.shadowBlur = 0; // reset shadow
+
+        // Inner Core of Packet
+        ctx.fillStyle = '#FFFFFF';
+        ctx.beginPath();
+        ctx.arc(packetX, packetY, 1.2, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Update favicon link href with PNG stream
+        if (faviconLink) {
+          faviconLink.href = canvas.toDataURL('image/png');
+        }
+
+        angle += 0.09;
+        pulsePhase += 0.08;
+      }
+
+      // Smooth ~25fps interval for tab icon animation
+      setInterval(renderFaviconFrame, 40);
+    }
+
+    // Initialize on Page Load
+    window.addEventListener('DOMContentLoaded', () => {
+      switchTopology('bus');
+      switchServiceAnalogy('pizza');
+      updateMetricDashboard(120);
+      initAnimatedFavicon();
+    });
+  </script>
+</body>
+</html>
